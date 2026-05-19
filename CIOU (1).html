@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CIOU – House Maintenance Marketplace Munich</title>
+<title>CIOU – House Maintenance Marketplace Munich (BETA)</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
@@ -27,10 +27,28 @@
   --info:#185FA5;--info-bg:#E6F1FB;
   --radius:12px;--radius-lg:20px;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px}
+
+/* Dark mode theme */
+body.dark-mode {
+  --ink:#F0FAF4;
+  --paper:#0D2818;
+  --card:#1A3D2A;
+  --brand:#2EA05C;
+  --brand-dark:#1A7A45;
+  --brand-light:#4CAF80;
+  --muted:#A8C9B8;
+  --border:rgba(46,160,92,0.2);
+  --border-m:rgba(46,160,92,0.35);
+}
+
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;font-size:15px;transition:background .3s,color .3s}
 
 .nav{position:sticky;top:0;z-index:200;background:rgba(240,250,244,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px}
+body.dark-mode .nav{background:rgba(13,40,24,0.95)}
+
+.nav-top{display:flex;align-items:center;justify-content:space-between;width:100%}
 .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:var(--ink);display:flex;align-items:center;gap:10px;cursor:pointer;letter-spacing:-0.5px;transition:transform .15s}
+.logo-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:linear-gradient(135deg,#FF6B6B,#FF8E72);border-radius:6px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.05em}
 .logo:hover{transform:scale(1.04)}
 .logo-avatar{width:36px;height:36px;background:var(--brand);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:all .25s;box-shadow:0 2px 8px rgba(26,122,69,.35)}
 .logo:hover .logo-avatar{box-shadow:0 4px 16px rgba(26,122,69,.55);transform:rotate(-8deg)}
@@ -40,12 +58,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .nav-pill{display:flex;gap:2px;background:var(--brand-soft);border-radius:8px;padding:3px;margin-right:4px}
 .lang-btn{padding:4px 10px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all .15s}
 .lang-btn.active{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.theme-toggle{padding:7px 14px;border-radius:8px;font-size:16px;background:none;border:none;cursor:pointer;transition:all .15s;color:var(--muted)}
+.theme-toggle:hover{background:var(--brand-soft);color:var(--brand)}
 
 .page{display:none}
 .page.active{display:block}
 
 .hero{min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px 60px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(26,122,69,0.12) 0%,transparent 70%);pointer-events:none}
+body.dark-mode .hero::before{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(46,160,92,0.15) 0%,transparent 70%)}
 .hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(42px,7vw,80px);line-height:1.05;letter-spacing:-2px;color:var(--ink);margin-bottom:20px;max-width:800px}
 .hero h1 em{font-style:normal;color:var(--brand)}
 .hero-sub{font-size:17px;color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:40px;font-weight:300}
@@ -57,6 +78,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 
 .section{padding:80px 32px}
 .section.alt{background:var(--card)}
+body.dark-mode .section.alt{background:#1A3D2A}
 .section-label{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
 .section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(28px,4vw,42px);letter-spacing:-1px;line-height:1.15;margin-bottom:12px;color:var(--ink)}
 .section-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:520px;font-weight:300}
@@ -88,6 +110,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 
 .ob-wrap{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:40px 16px;background:var(--paper)}
 .ob-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 32px;width:100%;max-width:480px;box-shadow:0 4px 40px rgba(26,122,69,0.08)}
+body.dark-mode .ob-card{box-shadow:0 4px 40px rgba(46,160,92,0.15)}
 .ob-progress{display:flex;gap:6px;margin-bottom:28px}
 .ob-dot{height:4px;flex:1;border-radius:2px;background:var(--brand-soft);transition:all .4s}
 .ob-dot.done{background:var(--brand)}
@@ -98,13 +121,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .role-card:hover{border-color:var(--brand);background:var(--card)}
 .role-card.selected{border-color:var(--brand);background:var(--brand-soft);box-shadow:0 0 0 3px rgba(26,122,69,0.12)}
 
-.form-input{width:100%;padding:10px 14px;border:1.5px solid var(--border-m);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);background:#fff;outline:none;transition:all .15s}
+.form-input{width:100%;padding:10px 14px;border:1.5px solid var(--border-m);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--card);outline:none;transition:all .15s}
 .form-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(26,122,69,0.08)}
 .form-input.error{border-color:var(--danger)!important}
 .btn-full{width:100%;padding:12px;background:var(--brand);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
 .btn-full:hover{background:var(--brand-dark)}
 
-.skill-tag{padding:8px 12px;border:1.5px solid var(--border-m);border-radius:8px;font-size:13px;cursor:pointer;text-align:center;transition:all .15s;color:var(--muted);display:inline-block;margin:4px}
+.skill-tag{padding:8px 12px;border:1.5px solid var(--border-m);border-radius:8px;font-size:13px;cursor:pointer;text-align:center;transition:all .15s;color:var(--muted);display:inline-block;margin:4px;background:var(--card)}
 .skill-tag:hover{border-color:var(--brand);color:var(--brand)}
 .skill-tag.selected{background:var(--brand);border-color:var(--brand);color:#fff}
 
@@ -118,13 +141,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 .map-modal-title{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.4px;margin-bottom:4px;color:var(--ink)}
 .map-modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
 .munich-map-wrap{position:relative;width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:linear-gradient(135deg,#f0faf7 0%,#e8f7f2 100%)}
+body.dark-mode .munich-map-wrap{background:linear-gradient(135deg,#1A3D2A 0%,#0F5530 100%)}
 .district-dot{position:absolute;transform:translate(-50%,-50%);cursor:pointer}
-.district-circle{width:18px;height:18px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 2px 8px rgba(26,122,69,.5);transition:all .2s;animation:pulse 2s infinite}
+.district-circle{width:18px;height:18px;border-radius:50%;background:var(--brand);border:3px solid var(--card);box-shadow:0 2px 8px rgba(26,122,69,.5);transition:all .2s;animation:pulse 2s infinite}
 .district-dot:hover .district-circle{transform:scale(1.5);background:var(--brand-dark)}
 .district-label{position:absolute;left:50%;transform:translateX(-50%);top:-28px;background:var(--brand);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;white-space:nowrap;opacity:0;transition:opacity .15s;pointer-events:none;z-index:10}
 .district-dot:hover .district-label{opacity:1}
 .district-workers{position:absolute;left:50%;transform:translateX(-50%);bottom:-24px;font-size:10px;color:var(--muted);white-space:nowrap;opacity:0;transition:opacity .15s;pointer-events:none}
 .district-dot:hover .district-workers{opacity:1}
+
+.district-page{max-width:800px;margin:0 auto;padding:60px 32px}
+.district-hero{background:linear-gradient(135deg,var(--brand-soft),var(--card));border-radius:var(--radius-lg);padding:40px 32px;margin-bottom:40px;text-align:center}
+.district-hero h1{font-family:'Syne',sans-serif;font-weight:700;font-size:40px;color:var(--ink);margin-bottom:8px}
+.district-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:24px}
+.stat-box{background:var(--card);border-radius:var(--radius);padding:16px;text-align:center}
+.stat-number{font-family:'Syne',sans-serif;font-weight:700;font-size:28px;color:var(--brand)}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px}
+
 @keyframes pulse{0%,100%{box-shadow:0 2px 8px rgba(26,122,69,.5)}50%{box-shadow:0 2px 16px rgba(26,122,69,.8)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
@@ -132,24 +165,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
   .nav{padding:0 16px}
   .services-grid{grid-template-columns:1fr}
   .protect-grid{grid-template-columns:1fr}
+  .district-stats{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <div class="logo" onclick="showPage('home')">
-    <div class="logo-avatar">🔧</div>
-    CIOU Munich
+  <div style="display:flex;align-items:center;gap:20px">
+    <div class="logo" onclick="showPage('home')">
+      <div class="logo-avatar">🔧</div>
+      <div>
+        CIOU Munich
+        <div class="logo-badge">BETA</div>
+      </div>
+    </div>
   </div>
   <div class="nav-links">
     <div class="nav-pill">
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
     </div>
-    <button class="nav-link" onclick="showPage('how')">How it works</button>
-    <button class="nav-link" onclick="showPage('rules')">Rules</button>
-    <button class="nav-link" onclick="openMunichMap()" style="color:var(--brand);font-weight:600">📍 Districts</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
+    <button class="nav-link" onclick="showPage('how')" data-en="How it works" data-de="So funktioniert's">How it works</button>
+    <button class="nav-link" onclick="showPage('rules')" data-en="Rules" data-de="Regeln">Rules</button>
+    <button class="nav-link" onclick="openMunichMap()" style="color:var(--brand);font-weight:600">📍 <span data-en="Districts" data-de="Bezirke">Districts</span></button>
   </div>
 </nav>
 
@@ -158,29 +198,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
   <div class="hero">
     <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--border-m);border-radius:100px;background:var(--card);margin-bottom:28px;font-size:13px;color:var(--brand);cursor:pointer;transition:all .2s" onclick="openMunichMap()" onmouseenter="this.style.background='var(--brand-soft)'" onmouseleave="this.style.background='var(--card)'">
       <i class="ti ti-map-pin" style="font-size:14px"></i>
-      <span>Active in all Munich districts</span>
+      <span data-en="Active in all Munich districts" data-de="Aktiv in allen Münchner Bezirken">Active in all Munich districts</span>
       <i class="ti ti-chevron-right" style="font-size:12px;color:var(--muted)"></i>
     </div>
-    <h1 style="font-size:clamp(32px,5vw,64px);margin-bottom:20px">Need house<br>maintenance in<br>Munich?<br><em>We handle everything.</em></h1>
-    <p class="hero-sub">Munich's fastest marketplace for cleaning, moving, repairs & more. Find trusted professionals, pay safely, money-back guarantee.</p>
+    <h1 style="font-size:clamp(32px,5vw,64px);margin-bottom:20px"><span data-en="Need house" data-de="Benötigen Sie">Need house</span><br><span data-en="maintenance in" data-de="Haushaltsreinigung in">maintenance in</span><br><span data-en="Munich?" data-de="München?">Munich?</span><br><em data-en="We handle everything." data-de="Wir kümmern uns um alles.">We handle everything.</em></h1>
+    <p class="hero-sub" data-en="Munich's fastest marketplace for cleaning, moving, repairs & more. Find trusted professionals, pay safely, money-back guarantee." data-de="Münchens schnellster Marktplatz für Reinigung, Umzug, Reparaturen und mehr. Finden Sie vertrauenswürdige Fachleute, zahlen Sie sicher, Geldwechsel-Garantie.">Munich's fastest marketplace for cleaning, moving, repairs & more. Find trusted professionals, pay safely, money-back guarantee.</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="startOnboard('customer')">
-        <i class="ti ti-search"></i> Find a Pro
+        <i class="ti ti-search"></i> <span data-en="Find a Pro" data-de="Einen Profi finden">Find a Pro</span>
       </button>
-      <button class="btn-secondary" onclick="startOnboard('worker')">Offer Services</button>
+      <button class="btn-secondary" onclick="startOnboard('worker')" data-en="Offer Services" data-de="Dienstleistungen anbieten">Offer Services</button>
     </div>
     <div style="margin-top:40px;padding-top:40px;border-top:1px solid var(--border);display:flex;gap:32px;justify-content:center;flex-wrap:wrap">
       <div style="text-align:center">
         <strong style="font-family:'Syne',sans-serif;font-weight:700;font-size:28px;display:block;color:var(--brand)">🇩🇪</strong>
-        <span style="font-size:13px;color:var(--muted)">Munich-based</span>
+        <span style="font-size:13px;color:var(--muted)" data-en="Munich-based" data-de="München-basiert">Munich-based</span>
       </div>
       <div style="text-align:center">
         <strong style="font-family:'Syne',sans-serif;font-weight:700;font-size:28px;display:block;color:var(--brand)">48h</strong>
-        <span style="font-size:13px;color:var(--muted)">Dispute resolution</span>
+        <span style="font-size:13px;color:var(--muted)" data-en="Dispute resolution" data-de="Streitbeilegung">Dispute resolution</span>
       </div>
       <div style="text-align:center">
         <strong style="font-family:'Syne',sans-serif;font-weight:700;font-size:28px;display:block;color:var(--brand)">5%</strong>
-        <span style="font-size:13px;color:var(--muted)">Min. fee for top pros</span>
+        <span style="font-size:13px;color:var(--muted)" data-en="Min. fee for top pros" data-de="Mindestgebühr für Top-Profis">Min. fee for top pros</span>
       </div>
     </div>
   </div>
@@ -188,38 +228,38 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
   <!-- SERVICES -->
   <div class="section alt">
     <div class="inner">
-      <div class="section-label">Our Services</div>
-      <div class="section-title">Everything for your Munich home</div>
+      <div class="section-label" data-en="Our Services" data-de="Unsere Dienstleistungen">Our Services</div>
+      <div class="section-title" data-en="Everything for your Munich home" data-de="Alles für dein Münchner Zuhause">Everything for your Munich home</div>
       <div class="services-grid">
         <div class="service-card">
           <span class="service-icon">🧹</span>
-          <div class="service-name">Cleaning</div>
-          <div class="service-desc">Move-in, move-out, deep cleaning & regular maintenance</div>
+          <div class="service-name" data-en="Cleaning" data-de="Reinigung">Cleaning</div>
+          <div class="service-desc" data-en="Move-in, move-out, deep cleaning & regular maintenance" data-de="Einzug, Auszug, Tiefenreinigung und regelmäßige Wartung">Move-in, move-out, deep cleaning & regular maintenance</div>
         </div>
         <div class="service-card">
           <span class="service-icon">📦</span>
-          <div class="service-name">Moving</div>
-          <div class="service-desc">Help with packing, loading, transport & unpacking</div>
+          <div class="service-name" data-en="Moving" data-de="Umzug">Moving</div>
+          <div class="service-desc" data-en="Help with packing, loading, transport & unpacking" data-de="Hilfe beim Packen, Laden, Transport und Auspacken">Help with packing, loading, transport & unpacking</div>
         </div>
         <div class="service-card">
           <span class="service-icon">🔨</span>
-          <div class="service-name">Repairs</div>
-          <div class="service-desc">Handyman work, furniture assembly & fixes</div>
+          <div class="service-name" data-en="Repairs" data-de="Reparaturen">Repairs</div>
+          <div class="service-desc" data-en="Handyman work, furniture assembly & fixes" data-de="Handwerkerarbeit, Möbelmontage und Reparaturen">Handyman work, furniture assembly & fixes</div>
         </div>
         <div class="service-card">
           <span class="service-icon">🌳</span>
-          <div class="service-name">Garden</div>
-          <div class="service-desc">Maintenance, landscaping & yard work</div>
+          <div class="service-name" data-en="Garden" data-de="Garten">Garden</div>
+          <div class="service-desc" data-en="Maintenance, landscaping & yard work" data-de="Wartung, Landschaftsgestaltung und Hofarbeit">Maintenance, landscaping & yard work</div>
         </div>
         <div class="service-card">
           <span class="service-icon">🚚</span>
-          <div class="service-name">Delivery</div>
-          <div class="service-desc">Item transport, pickup & logistics help</div>
+          <div class="service-name" data-en="Delivery" data-de="Lieferung">Delivery</div>
+          <div class="service-desc" data-en="Item transport, pickup & logistics help" data-de="Artikeltransport, Abholung und Logistikhilfe">Item transport, pickup & logistics help</div>
         </div>
         <div class="service-card">
           <span class="service-icon">✨</span>
-          <div class="service-name">Other</div>
-          <div class="service-desc">Post any house maintenance job you need</div>
+          <div class="service-name" data-en="Other" data-de="Sonstiges">Other</div>
+          <div class="service-desc" data-en="Post any house maintenance job you need" data-de="Poste jeden Haushaltsreinigungsauftrag, den du benötigst">Post any house maintenance job you need</div>
         </div>
       </div>
     </div>
@@ -228,26 +268,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
   <!-- FIRST 5 JOBS PROMO -->
   <div class="section">
     <div class="inner" style="text-align:center">
-      <div class="promo-badge">⭐ SPECIAL OFFER ⭐</div>
-      <div class="section-title">First 5 jobs at 15% fee</div>
-      <p class="section-sub" style="margin-bottom:8px">New professionals get a special rate on their first 5 jobs. After that, fees increase based on ratings.</p>
+      <div class="promo-badge">⭐ <span data-en="SPECIAL OFFER" data-de="SPEZIALANGEBOT">SPECIAL OFFER</span> ⭐</div>
+      <div class="section-title" data-en="First 5 jobs at 15% fee" data-de="Erste 5 Jobs mit 15% Gebühr">First 5 jobs at 15% fee</div>
+      <p class="section-sub" style="margin-bottom:8px" data-en="New professionals get a special rate on their first 5 jobs. After that, fees increase based on ratings." data-de="Neue Profis bekommen einen Sondersatz für ihre ersten 5 Jobs. Danach erhöhen sich die Gebühren je nach Bewertungen.">New professionals get a special rate on their first 5 jobs. After that, fees increase based on ratings.</p>
       <div style="background:linear-gradient(135deg,rgba(26,122,69,0.05),rgba(26,122,69,0.02));border-radius:var(--radius-lg);padding:24px;margin-top:24px;border:1px solid var(--border)">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px">
           <div>
             <div style="font-size:28px;font-weight:800;color:var(--brand)">15%</div>
-            <div style="font-size:13px;color:var(--muted)">First 5 jobs</div>
+            <div style="font-size:13px;color:var(--muted)" data-en="First 5 jobs" data-de="Erste 5 Jobs">First 5 jobs</div>
           </div>
           <div>
             <div style="font-size:28px;font-weight:800;color:var(--brand)">12%</div>
-            <div style="font-size:13px;color:var(--muted)">After 4.3★ rating</div>
+            <div style="font-size:13px;color:var(--muted)" data-en="After 4.3★ rating" data-de="Nach 4,3-Sterne-Bewertung">After 4.3★ rating</div>
           </div>
           <div>
             <div style="font-size:28px;font-weight:800;color:var(--brand)">8%</div>
-            <div style="font-size:13px;color:var(--muted)">After 4.7★ rating</div>
+            <div style="font-size:13px;color:var(--muted)" data-en="After 4.7★ rating" data-de="Nach 4,7-Sterne-Bewertung">After 4.7★ rating</div>
           </div>
           <div>
             <div style="font-size:28px;font-weight:800;color:var(--brand)">5%</div>
-            <div style="font-size:13px;color:var(--muted)">Perfect 5.0★</div>
+            <div style="font-size:13px;color:var(--muted)" data-en="Perfect 5.0★" data-de="Perfekt 5,0 Sterne">Perfect 5.0★</div>
           </div>
         </div>
       </div>
@@ -257,13 +297,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
   <!-- HOW IT WORKS -->
   <div class="section alt">
     <div class="inner">
-      <div class="section-label">The process</div>
-      <div class="section-title">Simple & Secure</div>
+      <div class="section-label" data-en="The process" data-de="Der Prozess">The process</div>
+      <div class="section-title" data-en="Simple & Secure" data-de="Einfach und sicher">Simple & Secure</div>
       <div class="steps">
-        <div class="step"><div class="step-num">01</div><h3>Post job</h3><p>Describe what you need — any house maintenance work.</p></div>
-        <div class="step"><div class="step-num">02</div><h3>Get offers</h3><p>Professionals send proposals with price & availability.</p></div>
-        <div class="step"><div class="step-num">03</div><h3>Pay safely</h3><p>Money held in escrow until job is confirmed done.</p></div>
-        <div class="step"><div class="step-num">04</div><h3>Rate & review</h3><p>Leave feedback. Dispute within 24h if needed.</p></div>
+        <div class="step"><div class="step-num">01</div><h3 data-en="Post job" data-de="Auftrag posten">Post job</h3><p data-en="Describe what you need — any house maintenance work." data-de="Beschreiben Sie, was Sie benötigen – jede Haushaltsreinigungsarbeit.">Describe what you need — any house maintenance work.</p></div>
+        <div class="step"><div class="step-num">02</div><h3 data-en="Get offers" data-de="Angebote erhalten">Get offers</h3><p data-en="Professionals send proposals with price & availability." data-de="Fachleute senden Vorschläge mit Preis und Verfügbarkeit.">Professionals send proposals with price & availability.</p></div>
+        <div class="step"><div class="step-num">03</div><h3 data-en="Pay safely" data-de="Sicher bezahlen">Pay safely</h3><p data-en="Money held in escrow until job is confirmed done." data-de="Geld wird in Treuhänder gehalten, bis der Auftrag bestätigt ist.">Money held in escrow until job is confirmed done.</p></div>
+        <div class="step"><div class="step-num">04</div><h3 data-en="Rate & review" data-de="Bewertung und Rezension">Rate & review</h3><p data-en="Leave feedback. Dispute within 24h if needed." data-de="Hinterlassen Sie Feedback. Falls nötig, innerhalb von 24 Stunden einspruch.">Leave feedback. Dispute within 24h if needed.</p></div>
       </div>
     </div>
   </div>
@@ -271,18 +311,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
   <!-- PROTECTION -->
   <div class="section">
     <div class="inner">
-      <div class="section-label">Protection</div>
-      <div class="section-title">Money moves only<br>when job is done</div>
+      <div class="section-label" data-en="Protection" data-de="Schutz">Protection</div>
+      <div class="section-title" data-en="Money moves only when job is done" data-de="Geld wird nur übertragen wenn Auftrag abgeschlossen ist">Money moves only when job is done</div>
       <div class="protect-grid">
         <div class="protect-card cust-card">
           <div class="protect-icon"><i class="ti ti-shield-check"></i></div>
-          <h3>Bad work = money back</h3>
-          <p>Submit proof within 24h. We review in 48h. If verified, you get a full or partial refund. Minus €2 review fee only.</p>
+          <h3 data-en="Bad work = money back" data-de="Schlechte Arbeit = Geld zurück">Bad work = money back</h3>
+          <p data-en="Submit proof within 24h. We review in 48h. If verified, you get a full or partial refund. €2 review fee charged. If correct, gain €5 bonus credits." data-de="Senden Sie Beweis innerhalb von 24 Stunden. Wir überprüfen in 48 Stunden. Falls bestätigt, erhalten Sie eine vollständige oder teilweise Rückerstattung. 2 Euro Gebühr. Falls richtig, erhalten Sie 5€ Bonusguthaben.">Submit proof within 24h. We review in 48h. If verified, you get a full or partial refund. €2 review fee charged. If correct, gain €5 bonus credits.</p>
         </div>
         <div class="protect-card worker-card">
           <div class="protect-icon"><i class="ti ti-alert-triangle"></i></div>
-          <h3>Bad work = penalty</h3>
-          <p>If customer proves bad work with photos/video, we deduct 10–100% from your payment. Serious = account suspended.</p>
+          <h3 data-en="Bad work = penalty" data-de="Schlechte Arbeit = Strafe">Bad work = penalty</h3>
+          <p data-en="If proven with photos/video: 10–100% deduction. If job marked €0 & customer gets 100% back, you pay additional % (67% customer / 33% company)." data-de="Wenn mit Fotos/Video nachgewiesen: 10–100% Abzug. Wenn Auftrag €0 und Kunde 100% zurück, zahlen Sie zusätzliche % (67% Kunde / 33% Unternehmen).">If proven with photos/video: 10–100% deduction. If job marked €0 & customer gets 100% back, you pay additional % (67% customer / 33% company).</p>
         </div>
       </div>
     </div>
@@ -292,29 +332,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 <!-- HOW IT WORKS PAGE -->
 <div class="page" id="page-how">
   <div style="max-width:700px;margin:0 auto;padding:60px 32px">
-    <h1 class="section-title" style="margin-bottom:24px">How CIOU Munich Works</h1>
+    <h1 class="section-title" style="margin-bottom:24px" data-en="How CIOU Munich Works" data-de="So funktioniert CIOU München">How CIOU Munich Works</h1>
     <div style="background:var(--brand-soft);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px">
       <ol style="list-style:none;padding:0">
         <li style="display:flex;gap:16px;margin-bottom:20px">
           <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--brand);color:#fff;border-radius:8px;font-weight:700;flex-shrink:0">1</span>
-          <div><strong>We connect customers & professionals</strong><p style="font-size:14px;color:var(--muted);margin-top:4px">Post a job, get offers, pick the best professional in Munich.</p></div>
+          <div><strong data-en="We connect customers & professionals" data-de="Wir verbinden Kunden und Profis">We connect customers & professionals</strong><p style="font-size:14px;color:var(--muted);margin-top:4px" data-en="Post a job, get offers, pick the best professional in Munich." data-de="Stellen Sie einen Auftrag auf, erhalten Sie Angebote und wählen Sie den besten Profi in München.">Post a job, get offers, pick the best professional in Munich.</p></div>
         </li>
         <li style="display:flex;gap:16px;margin-bottom:20px">
           <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--brand);color:#fff;border-radius:8px;font-weight:700;flex-shrink:0">2</span>
-          <div><strong>Payment is safe in escrow</strong><p style="font-size:14px;color:var(--muted);margin-top:4px">Money is held until job confirmed complete.</p></div>
+          <div><strong data-en="Payment is safe in escrow" data-de="Zahlung ist sicher im Treuhandkonto">Payment is safe in escrow</strong><p style="font-size:14px;color:var(--muted);margin-top:4px" data-en="Money is held until job confirmed complete." data-de="Geld wird gehalten, bis der Auftrag bestätigt ist.">Money is held until job confirmed complete.</p></div>
         </li>
         <li style="display:flex;gap:16px;margin-bottom:20px">
           <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--brand);color:#fff;border-radius:8px;font-weight:700;flex-shrink:0">3</span>
-          <div><strong>We charge professionals only</strong><p style="font-size:14px;color:var(--muted);margin-top:4px">First 5 jobs = 15%. Then 12%, 8%, or 5% based on ratings. Customers pay 0% fee.</p></div>
+          <div><strong data-en="We charge professionals only" data-de="Wir berechnen Profis allein">We charge professionals only</strong><p style="font-size:14px;color:var(--muted);margin-top:4px" data-en="First 5 jobs = 15%. Then 12%, 8%, or 5% based on ratings. Customers pay 0% fee." data-de="Erste 5 Jobs = 15%. Dann 12%, 8% oder 5% je nach Bewertungen. Kunden zahlen 0% Gebühr.">First 5 jobs = 15%. Then 12%, 8%, or 5% based on ratings. Customers pay 0% fee.</p></div>
         </li>
         <li style="display:flex;gap:16px">
           <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--brand);color:#fff;border-radius:8px;font-weight:700;flex-shrink:0">4</span>
-          <div><strong>Both sides are protected</strong><p style="font-size:14px;color:var(--muted);margin-top:4px">Disputes resolved in 48h. Photo/video evidence required. Refunds or penalties applied fairly.</p></div>
+          <div><strong data-en="Both sides are protected" data-de="Beide Seiten sind geschützt">Both sides are protected</strong><p style="font-size:14px;color:var(--muted);margin-top:4px" data-en="Disputes resolved in 48h. Photo/video evidence required. Refunds or penalties applied fairly." data-de="Streitigkeiten werden in 48 Stunden beigelegt. Foto-/Videobeweis erforderlich. Rückerstattungen oder Strafen fair angewendet.">Disputes resolved in 48h. Photo/video evidence required. Refunds or penalties applied fairly.</p></div>
         </li>
       </ol>
     </div>
     <div style="text-align:center;margin-top:32px">
-      <button class="btn-primary" onclick="showPage('home')">← Back to home</button>
+      <button class="btn-primary" onclick="showPage('home')">← <span data-en="Back to home" data-de="Zurück zur Startseite">Back to home</span></button>
     </div>
   </div>
 </div>
@@ -322,45 +362,50 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 <!-- RULES PAGE -->
 <div class="page" id="page-rules">
   <div style="max-width:700px;margin:0 auto;padding:60px 32px">
-    <h1 class="section-title" style="margin-bottom:24px">Rules & Protection</h1>
+    <h1 class="section-title" style="margin-bottom:24px" data-en="Rules & Protection" data-de="Regeln und Schutz">Rules & Protection</h1>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;display:flex;flex-direction:column;gap:16px">
       <div>
-        <strong style="color:var(--ink)">For Customers:</strong>
+        <strong style="color:var(--ink)" data-en="For Customers:" data-de="Für Kunden:">For Customers:</strong>
         <ul style="margin-left:16px;margin-top:8px;color:var(--muted);font-size:14px;line-height:1.7">
-          <li>✓ Money held in escrow until you confirm</li>
-          <li>✓ Dispute within 24 hours with proof (photos/video)</li>
-          <li>✓ Full or partial refund if verified</li>
-          <li>✓ €2 flat review fee only</li>
-          <li>✓ Zero platform fees</li>
+          <li data-en="✓ Money held in escrow until you confirm" data-de="✓ Geld wird in Treuhänder gehalten, bis Sie bestätigen">✓ Money held in escrow until you confirm</li>
+          <li data-en="✓ Dispute within 24 hours with proof (photos/video)" data-de="✓ Einspruch innerhalb von 24 Stunden mit Beweis (Fotos/Video)">✓ Dispute within 24 hours with proof (photos/video)</li>
+          <li data-en="✓ Full or partial refund if verified" data-de="✓ Vollständige oder teilweise Rückerstattung, falls bestätigt">✓ Full or partial refund if verified</li>
+          <li data-en="✓ €2 review fee charged (to escape false accusations)" data-de="✓ 2€ Gebühr (um falsche Anschuldigungen zu vermeiden)">✓ €2 review fee charged (to escape false accusations)</li>
+          <li data-en="✓ If complaint verified correct: gain €5 bonus credits" data-de="✓ Falls Beschwerde korrekt: 5€ Bonusguthaben">✓ If complaint verified correct: gain €5 bonus credits</li>
+          <li data-en="✓ Zero platform fees" data-de="✓ Keine Plattformgebühren">✓ Zero platform fees</li>
         </ul>
       </div>
       <div style="border-top:1px solid var(--border);padding-top:16px">
-        <strong style="color:var(--ink)">For Professionals:</strong>
+        <strong style="color:var(--ink)" data-en="For Professionals:" data-de="Für Profis:">For Professionals:</strong>
         <ul style="margin-left:16px;margin-top:8px;color:var(--muted);font-size:14px;line-height:1.7">
-          <li>✓ First 5 jobs at 15% fee</li>
-          <li>✓ Unlock lower fees: 12% (4.3★), 8% (4.7★), 5% (5.0★)</li>
-          <li>✓ Get paid 24h after customer confirms</li>
-          <li>✓ Bad work = 10–100% deduction</li>
-          <li>✓ 3+ complaints in 90 days = suspended</li>
-          <li>✓ Always take photos before & after for protection</li>
+          <li data-en="✓ First 5 jobs at 15% fee" data-de="✓ Erste 5 Jobs mit 15% Gebühr">✓ First 5 jobs at 15% fee</li>
+          <li data-en="✓ Unlock lower fees: 12% (4.3★), 8% (4.7★), 5% (5.0★)" data-de="✓ Entsperren Sie niedrigere Gebühren: 12% (4,3 Sterne), 8% (4,7 Sterne), 5% (5,0 Sterne)">✓ Unlock lower fees: 12% (4.3★), 8% (4.7★), 5% (5.0★)</li>
+          <li data-en="✓ Get paid 24h after customer confirms" data-de="✓ Zahlung 24 Stunden nach Kundenbestätigung">✓ Get paid 24h after customer confirms</li>
+          <li data-en="✓ Bad work = 10–100% deduction from payment" data-de="✓ Schlechte Arbeit = 10–100% Abzug von der Zahlung">✓ Bad work = 10–100% deduction from payment</li>
+          <li data-en="✓ SPECIAL: Job marked €0 with 100% customer refund = you pay additional % split (67% customer / 33% company)" data-de="✓ SPEZIAL: Job mit 0€ und 100% Kundenrückerstattung = Sie zahlen zusätzliche % (67% Kunde / 33% Unternehmen)">✓ SPECIAL: Job marked €0 with 100% customer refund = you pay additional % split (67% customer / 33% company)</li>
+          <li data-en="✓ 3+ complaints in 90 days = suspended" data-de="✓ 3+ Beschwerden in 90 Tagen = gesperrt">✓ 3+ complaints in 90 days = suspended</li>
+          <li data-en="✓ Always take photos before & after for protection" data-de="✓ Nehmen Sie immer Fotos vor und nach dem Schutz">✓ Always take photos before & after for protection</li>
         </ul>
       </div>
       <div style="border-top:1px solid var(--border);padding-top:16px">
-        <strong style="color:var(--ink)">General:</strong>
+        <strong style="color:var(--ink)" data-en="General:" data-de="Allgemeines:">General:</strong>
         <ul style="margin-left:16px;margin-top:8px;color:var(--muted);font-size:14px;line-height:1.7">
-          <li>✓ Professionals are self-employed (not employees)</li>
-          <li>✓ You handle your own taxes (Kleinunternehmer if 520€+/month in Germany)</li>
-          <li>✓ No professional certification required — just do good work</li>
-          <li>✓ Disputes resolved fairly — both sides heard</li>
-          <li>✓ False complaints = account suspended (3 strikes)</li>
+          <li data-en="✓ Professionals are self-employed (not employees)" data-de="✓ Profis sind Selbstständige (keine Arbeitnehmer)">✓ Professionals are self-employed (not employees)</li>
+          <li data-en="✓ You handle your own taxes (Kleinunternehmer if 520€+/month in Germany)" data-de="✓ Sie kümmern sich um Ihre eigenen Steuern (Kleinunternehmer bei 520€+/Monat in Deutschland)">✓ You handle your own taxes (Kleinunternehmer if 520€+/month in Germany)</li>
+          <li data-en="✓ No professional certification required — just do good work" data-de="✓ Keine professionelle Zertifizierung erforderlich – machen Sie einfach gute Arbeit">✓ No professional certification required — just do good work</li>
+          <li data-en="✓ Disputes resolved fairly — both sides heard" data-de="✓ Streitigkeiten fair beigelegt – beide Seiten gehört">✓ Disputes resolved fairly — both sides heard</li>
+          <li data-en="✓ False complaints = account suspended (3 strikes)" data-de="✓ Falsche Beschwerden = Konto gesperrt (3 Streiche)">✓ False complaints = account suspended (3 strikes)</li>
         </ul>
       </div>
     </div>
     <div style="text-align:center;margin-top:32px">
-      <button class="btn-primary" onclick="showPage('home')">← Back to home</button>
+      <button class="btn-primary" onclick="showPage('home')">← <span data-en="Back to home" data-de="Zurück zur Startseite">Back to home</span></button>
     </div>
   </div>
 </div>
+
+<!-- DISTRICT PAGES (generated dynamically) -->
+<div id="district-pages"></div>
 
 <!-- ONBOARDING -->
 <div class="page" id="page-onboard">
@@ -368,46 +413,46 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
     <div class="ob-card">
       <div id="ob-s1">
         <div class="ob-progress"><div class="ob-dot active"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
-        <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin-bottom:8px">Step 1 of 4</div>
-        <div class="ob-title">Who are you?</div>
-        <div style="font-size:14px;color:var(--muted);margin-bottom:24px">Choose your role on CIOU.</div>
+        <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin-bottom:8px" data-en="Step 1 of 4" data-de="Schritt 1 von 4">Step 1 of 4</div>
+        <div class="ob-title" data-en="Who are you?" data-de="Wer bist du?">Who are you?</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:24px" data-en="Choose your role on CIOU." data-de="Wählen Sie Ihre Rolle bei CIOU.">Choose your role on CIOU.</div>
         <div class="role-grid">
           <div class="role-card" id="rc-cust" onclick="selectRole('customer')">
             <div style="font-size:32px;margin-bottom:10px">🏠</div>
-            <div class="service-name" style="font-size:14px">I need help</div>
-            <div class="service-desc">Find a professional</div>
+            <div class="service-name" style="font-size:14px" data-en="I need help" data-de="Ich brauche Hilfe">I need help</div>
+            <div class="service-desc" data-en="Find a professional" data-de="Finden Sie einen Profi">Find a professional</div>
           </div>
           <div class="role-card" id="rc-work" onclick="selectRole('worker')">
             <div style="font-size:32px;margin-bottom:10px">🔧</div>
-            <div class="service-name" style="font-size:14px">I offer services</div>
-            <div class="service-desc">Get hired for jobs</div>
+            <div class="service-name" style="font-size:14px" data-en="I offer services" data-de="Ich biete Dienstleistungen an">I offer services</div>
+            <div class="service-desc" data-en="Get hired for jobs" data-de="Für Jobs eingestellt werden">Get hired for jobs</div>
           </div>
         </div>
-        <button class="btn-full" style="margin-top:20px" onclick="obGo(2)">Continue →</button>
+        <button class="btn-full" style="margin-top:20px" onclick="obGo(2)"><span data-en="Continue →" data-de="Fortfahren →">Continue →</span></button>
       </div>
 
       <div id="ob-s2" class="hidden">
         <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot active"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
-        <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin-bottom:8px">Step 2 of 4</div>
-        <div class="ob-title">Your profile</div>
+        <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin-bottom:8px" data-en="Step 2 of 4" data-de="Schritt 2 von 4">Step 2 of 4</div>
+        <div class="ob-title" data-en="Your profile" data-de="Dein Profil">Your profile</div>
         
         <div id="cust-fields">
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Full name *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Full name *" data-de="Vollständiger Name *">Full name *</label>
             <input class="form-input" id="c-name" type="text" placeholder="Ana Müller">
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Email *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Email *" data-de="E-Mail *">Email *</label>
             <input class="form-input" id="c-email" type="email" placeholder="ana@email.com">
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Phone number *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Phone number *" data-de="Telefonnummer *">Phone number *</label>
             <input class="form-input" id="c-phone" type="tel" placeholder="+49 151 2345 6789">
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Munich district *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Munich district *" data-de="Münchner Bezirk *">Munich district *</label>
             <select class="form-input" id="c-district" style="cursor:pointer">
-              <option>Altstadt (City Center)</option>
+              <option data-en="Altstadt (City Center)" data-de="Altstadt (Stadtzentrum)">Altstadt (City Center)</option>
               <option>Schwabing</option>
               <option>Neuhausen</option>
               <option>Bogenhausen</option>
@@ -420,26 +465,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
             </select>
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Password *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Password *" data-de="Passwort *">Password *</label>
             <input class="form-input" id="c-pw" type="password" placeholder="Min 8 characters">
           </div>
         </div>
 
         <div id="work-fields" class="hidden">
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Full name *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Full name *" data-de="Vollständiger Name *">Full name *</label>
             <input class="form-input" id="w-name" type="text" placeholder="Ana Müller">
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Email *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Email *" data-de="E-Mail *">Email *</label>
             <input class="form-input" id="w-email" type="email" placeholder="ana@email.com">
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Phone number *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Phone number *" data-de="Telefonnummer *">Phone number *</label>
             <input class="form-input" id="w-phone" type="tel" placeholder="+49 151 2345 6789">
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Working districts *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Working districts *" data-de="Arbeitsbezirke *">Working districts *</label>
             <select class="form-input" id="w-district" style="cursor:pointer;height:100px" multiple>
               <option>Altstadt (City Center)</option>
               <option>Schwabing</option>
@@ -452,55 +497,55 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
               <option>Berg am Laim</option>
               <option>Aubing</option>
             </select>
-            <p style="font-size:12px;color:var(--muted);margin-top:4px">Hold Ctrl/Cmd to select multiple districts</p>
+            <p style="font-size:12px;color:var(--muted);margin-top:4px" data-en="Hold Ctrl/Cmd to select multiple districts" data-de="Halten Sie Ctrl/Cmd gedrückt, um mehrere Bezirke auszuwählen">Hold Ctrl/Cmd to select multiple districts</p>
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">What services? *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="What services? *" data-de="Welche Dienstleistungen? *">What services? *</label>
             <div>
-              <div class="skill-tag" onclick="toggleSkill(this)">Cleaning</div>
-              <div class="skill-tag" onclick="toggleSkill(this)">Moving</div>
-              <div class="skill-tag" onclick="toggleSkill(this)">Repairs</div>
-              <div class="skill-tag" onclick="toggleSkill(this)">Garden</div>
-              <div class="skill-tag" onclick="toggleSkill(this)">Delivery</div>
-              <div class="skill-tag" onclick="toggleSkill(this)">Other</div>
+              <div class="skill-tag" onclick="toggleSkill(this)" data-en="Cleaning" data-de="Reinigung">Cleaning</div>
+              <div class="skill-tag" onclick="toggleSkill(this)" data-en="Moving" data-de="Umzug">Moving</div>
+              <div class="skill-tag" onclick="toggleSkill(this)" data-en="Repairs" data-de="Reparaturen">Repairs</div>
+              <div class="skill-tag" onclick="toggleSkill(this)" data-en="Garden" data-de="Garten">Garden</div>
+              <div class="skill-tag" onclick="toggleSkill(this)" data-en="Delivery" data-de="Lieferung">Delivery</div>
+              <div class="skill-tag" onclick="toggleSkill(this)" data-en="Other" data-de="Sonstiges">Other</div>
             </div>
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Hourly rate (€) *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Hourly rate (€) *" data-de="Stundensatz (€) *">Hourly rate (€) *</label>
             <input class="form-input" id="w-rate" type="number" placeholder="15" min="12">
-            <p style="font-size:12px;color:var(--muted);margin-top:4px">Min €12/hr. Most charge €15–30/hr.</p>
+            <p style="font-size:12px;color:var(--muted);margin-top:4px" data-en="Min €12/hr. Most charge €15–30/hr." data-de="Min. 12 €/Std. Die meisten berechnen 15–30 €/Std.">Min €12/hr. Most charge €15–30/hr.</p>
           </div>
           <div style="margin-bottom:16px">
-            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)">Password *</label>
+            <label style="font-size:13px;font-weight:500;display:block;margin-bottom:6px;color:var(--ink)" data-en="Password *" data-de="Passwort *">Password *</label>
             <input class="form-input" id="w-pw" type="password" placeholder="Min 8 characters">
           </div>
           <div class="info-box">
-            <p>✅ <strong>First 5 jobs at 15%!</strong> Then unlock lower fees: 12% (4.3★), 8% (4.7★), 5% (5.0★). No professional credentials needed — just do good work!</p>
+            <p data-en="✅ First 5 jobs at 15%! Then unlock lower fees: 12% (4.3★), 8% (4.7★), 5% (5.0★). No professional credentials needed — just do good work!" data-de="✅ Erste 5 Jobs mit 15%! Dann freischalten niedrigere Gebühren: 12% (4,3 Sterne), 8% (4,7 Sterne), 5% (5,0 Sterne). Keine professionellen Zeugnisse erforderlich – machen Sie einfach gute Arbeit!">✅ First 5 jobs at 15%! Then unlock lower fees: 12% (4.3★), 8% (4.7★), 5% (5.0★). No professional credentials needed — just do good work!</p>
           </div>
         </div>
 
         <div style="display:flex;gap:10px;margin-top:20px">
-          <button class="btn-full" style="flex:1;background:none;color:var(--brand);border:1.5px solid var(--border-m)" onclick="obGo(1)">← Back</button>
-          <button class="btn-full" style="flex:2" onclick="validateStep2()">Continue →</button>
+          <button class="btn-full" style="flex:1;background:none;color:var(--brand);border:1.5px solid var(--border-m)" onclick="obGo(1)">← <span data-en="Back" data-de="Zurück">Back</span></button>
+          <button class="btn-full" style="flex:2" onclick="validateStep2()"><span data-en="Continue →" data-de="Fortfahren →">Continue →</span></button>
         </div>
       </div>
 
       <div id="ob-s3" class="hidden">
         <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot active"></div><div class="ob-dot"></div></div>
-        <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin-bottom:8px">Step 3 of 4</div>
-        <div class="ob-title">Quick verification</div>
+        <div style="font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin-bottom:8px" data-en="Step 3 of 4" data-de="Schritt 3 von 4">Step 3 of 4</div>
+        <div class="ob-title" data-en="Quick verification" data-de="Schnelle Überprüfung">Quick verification</div>
         <div class="info-box" style="margin:20px 0">
-          <p>✓ Identity verified via email link</p>
-          <p>✓ Phone number confirmed</p>
-          <p>✓ Account ready to use</p>
+          <p data-en="✓ Identity verified via email link" data-de="✓ Identität per E-Mail-Link überprüft">✓ Identity verified via email link</p>
+          <p data-en="✓ Phone number confirmed" data-de="✓ Telefonnummer bestätigt">✓ Phone number confirmed</p>
+          <p data-en="✓ Account ready to use" data-de="✓ Konto einsatzbereit">✓ Account ready to use</p>
         </div>
         <label style="display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:16px">
           <input type="checkbox" id="terms-check" style="width:18px;height:18px;cursor:pointer">
-          I agree to Terms & Privacy Policy
+          <span data-en="I agree to Terms & Privacy Policy" data-de="Ich stimme den Bedingungen und der Datenschutzrichtlinie zu">I agree to Terms & Privacy Policy</span>
         </label>
         <div style="display:flex;gap:10px;margin-top:20px">
-          <button class="btn-full" style="flex:1;background:none;color:var(--brand);border:1.5px solid var(--border-m)" onclick="obGo(2)">← Back</button>
-          <button class="btn-full" style="flex:2" onclick="validateStep3()">Finish →</button>
+          <button class="btn-full" style="flex:1;background:none;color:var(--brand);border:1.5px solid var(--border-m)" onclick="obGo(2)">← <span data-en="Back" data-de="Zurück">Back</span></button>
+          <button class="btn-full" style="flex:2" onclick="validateStep3()"><span data-en="Finish →" data-de="Fertig →">Finish →</span></button>
         </div>
       </div>
 
@@ -508,9 +553,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
         <div class="ob-progress"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div></div>
         <div style="text-align:center">
           <div style="font-size:48px;margin-bottom:16px">🎉</div>
-          <div class="ob-title">You're in!</div>
-          <p style="font-size:14px;color:var(--muted);margin-bottom:20px">Your account is verified and ready to go.</p>
-          <button class="btn-full" onclick="goToDash()">Go to dashboard →</button>
+          <div class="ob-title" data-en="You're in!" data-de="Du bist drin!">You're in!</div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:20px" data-en="Your account is verified and ready to go." data-de="Dein Konto ist überprüft und bereit.">Your account is verified and ready to go.</p>
+          <button class="btn-full" onclick="goToDash()"><span data-en="Go to dashboard →" data-de="Zum Dashboard →">Go to dashboard →</span></button>
         </div>
       </div>
     </div>
@@ -520,15 +565,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 <!-- MUNICH MAP MODAL -->
 <div id="map-overlay" class="map-overlay hidden" onclick="closeMunichMap()">
   <div class="map-modal" onclick="event.stopPropagation()">
-    <div class="map-modal-title">Munich Service Districts</div>
-    <div class="map-modal-sub">Click on a district to see active professionals</div>
+    <div class="map-modal-title" data-en="Munich Service Districts" data-de="Münchner Servicebezirke">Munich Service Districts</div>
+    <div class="map-modal-sub" data-en="Click on a district to see active professionals" data-de="Klicken Sie auf einen Bezirk, um aktive Fachleute anzuzeigen">Click on a district to see active professionals</div>
     <div class="munich-map-wrap" id="munich-map">
       <!-- Districts will be rendered here -->
     </div>
     <div style="margin-top:16px;font-size:12px;color:var(--muted)">
-      🟢 Green dots show professional availability in each district. Hover to see details.
+      🟢 <span data-en="Green dots show professional availability in each district. Hover to see details." data-de="Grüne Punkte zeigen die Verfügbarkeit von Fachleuten in jedem Bezirk. Bewegen Sie sich darüber, um Details anzuzeigen.">Green dots show professional availability in each district. Hover to see details.</span>
     </div>
-    <button class="btn-primary" style="width:100%;margin-top:16px" onclick="closeMunichMap()">Close</button>
+    <button class="btn-primary" style="width:100%;margin-top:16px" onclick="closeMunichMap()" data-en="Close" data-de="Schließen">Close</button>
   </div>
 </div>
 
@@ -537,23 +582,63 @@ let currentLang='en',currentRole='',currentStep=1,selectedSkills=[];
 const API='http://localhost:5000/api';
 
 const munichDistricts=[
-  {name:'Altstadt',lat:48.137,lon:11.576,workers:12},
-  {name:'Schwabing',lat:48.169,lon:11.592,workers:18},
-  {name:'Neuhausen',lat:48.158,lon:11.512,workers:9},
-  {name:'Bogenhausen',lat:48.123,lon:11.642,workers:14},
-  {name:'Hadern',lat:48.083,lon:11.522,workers:7},
-  {name:'Giesing',lat:48.106,lon:11.650,workers:11},
-  {name:'Sendling',lat:48.113,lon:11.530,workers:8},
-  {name:'Laim',lat:48.147,lon:11.465,workers:6},
-  {name:'Berg am Laim',lat:48.102,lon:11.626,workers:10},
-  {name:'Aubing',lat:48.100,lon:11.454,workers:5}
+  {name:'Altstadt',nameDE:'Altstadt',lat:48.137,lon:11.576,workers:12,desc:'City Center - Heart of Munich',descDE:'Stadtzentrum – Herz Münchens'},
+  {name:'Schwabing',nameDE:'Schwabing',lat:48.169,lon:11.592,workers:18,desc:'North - Bohemian & Cultural',descDE:'Norden – Böhmisch & Kulturell'},
+  {name:'Neuhausen',nameDE:'Neuhausen',lat:48.158,lon:11.512,workers:9,desc:'West - Residential & Quiet',descDE:'Westen – Wohngebiet & Ruhig'},
+  {name:'Bogenhausen',nameDE:'Bogenhausen',lat:48.123,lon:11.642,workers:14,desc:'East - Upscale & Modern',descDE:'Osten – Gehobene & Moderne'},
+  {name:'Hadern',nameDE:'Hadern',lat:48.083,lon:11.522,workers:7,desc:'South - Green & Suburban',descDE:'Süden – Grün & Vorstädtisch'},
+  {name:'Giesing',nameDE:'Giesing',lat:48.106,lon:11.650,workers:11,desc:'South-East - Mixed',descDE:'Südosten – Gemischt'},
+  {name:'Sendling',nameDE:'Sendling',lat:48.113,lon:11.530,workers:8,desc:'South-West - Family-Friendly',descDE:'Südwesten – Familienfreundlich'},
+  {name:'Laim',nameDE:'Laim',lat:48.147,lon:11.465,workers:6,desc:'West - Emerging & Trendy',descDE:'Westen – Aufstrebend & Trendig'},
+  {name:'Berg am Laim',nameDE:'Berg am Laim',lat:48.102,lon:11.626,workers:10,desc:'East - Peaceful & Green',descDE:'Osten – Friedlich & Grün'},
+  {name:'Aubing',nameDE:'Aubing',lat:48.100,lon:11.454,workers:5,desc:'Far West - Calm & Spacious',descDE:'Ferner Westen – Ruhig & Geräumig'}
 ];
 
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active')}
-function setLang(l){currentLang=l;localStorage.setItem('lang',l)}
-function selectRole(r){currentRole=r;document.getElementById('rc-cust').classList.toggle('selected',r==='customer');document.getElementById('rc-work').classList.toggle('selected',r==='worker')}
-function toggleSkill(el){el.classList.toggle('selected');selectedSkills=Array.from(document.querySelectorAll('.skill-tag.selected')).map(s=>s.textContent)}
-function obGo(s){currentStep=s;for(let i=1;i<=4;i++)document.getElementById('ob-s'+i).classList.toggle('hidden',i!==s);document.querySelectorAll('.ob-dot').forEach((d,i)=>{d.classList.remove('done','active');if(i<s-1)d.classList.add('done');else if(i===s-1)d.classList.add('active')})}
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+}
+
+function setLang(l){
+  currentLang=l;
+  localStorage.setItem('lang',l);
+  updateLanguage();
+}
+
+function updateLanguage(){
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.textContent=currentLang==='en'?el.getAttribute('data-en'):el.getAttribute('data-de')||el.getAttribute('data-en');
+  });
+}
+
+function toggleTheme(){
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('theme',document.body.classList.contains('dark-mode')?'dark':'light');
+  document.querySelector('.theme-toggle').textContent=document.body.classList.contains('dark-mode')?'☀️':'🌙';
+}
+
+function selectRole(r){
+  currentRole=r;
+  document.getElementById('rc-cust').classList.toggle('selected',r==='customer');
+  document.getElementById('rc-work').classList.toggle('selected',r==='worker');
+  document.getElementById('cust-fields').classList.toggle('hidden',r!=='customer');
+  document.getElementById('work-fields').classList.toggle('hidden',r!=='worker');
+}
+
+function toggleSkill(el){
+  el.classList.toggle('selected');
+  selectedSkills=Array.from(document.querySelectorAll('.skill-tag.selected')).map(s=>s.textContent.trim());
+}
+
+function obGo(s){
+  currentStep=s;
+  for(let i=1;i<=4;i++)document.getElementById('ob-s'+i).classList.toggle('hidden',i!==s);
+  document.querySelectorAll('.ob-dot').forEach((d,i)=>{
+    d.classList.remove('done','active');
+    if(i<s-1)d.classList.add('done');
+    else if(i===s-1)d.classList.add('active');
+  });
+}
 
 function openMunichMap(){
   document.getElementById('map-overlay').classList.remove('hidden');
@@ -573,13 +658,67 @@ function renderMunichMap(){
     const x=((lon-11.4)/(11.7-11.4))*100;
     const y=((48.2-lat)/(48.2-48.05))*100;
     const dotHTML=`
-      <div class="district-dot" style="left:${x}%;top:${y}%">
+      <div class="district-dot" style="left:${x}%;top:${y}%" onclick="showDistrictPage('${district.name}')">
         <div class="district-circle"></div>
         <div class="district-label">${district.name}</div>
-        <div class="district-workers">${district.workers} professionals</div>
+        <div class="district-workers">${district.workers} ${currentLang==='en'?'professionals':'Profis'}</div>
       </div>
     `;
     mapDiv.innerHTML+=dotHTML;
+  });
+}
+
+function showDistrictPage(districtName){
+  const district=munichDistricts.find(d=>d.name===districtName);
+  if(!district)return;
+  closeMunichMap();
+  showPage('district-'+districtName.toLowerCase());
+}
+
+function createDistrictPages(){
+  const container=document.getElementById('district-pages');
+  munichDistricts.forEach(district=>{
+    const pageId='district-'+district.name.toLowerCase();
+    const html=`
+      <div class="page" id="page-${pageId}">
+        <div class="district-page">
+          <div style="text-align:left;margin-bottom:20px">
+            <button class="btn-secondary" onclick="showPage('home')" style="border:none;background:transparent;color:var(--brand);padding:0;font-weight:600">← ${currentLang==='en'?'Back':'Zurück'}</button>
+          </div>
+          <div class="district-hero">
+            <h1>${district.name}</h1>
+            <p style="color:var(--muted);margin-top:8px">${currentLang==='en'?district.desc:district.descDE}</p>
+          </div>
+          <div class="district-stats">
+            <div class="stat-box">
+              <div class="stat-number">${district.workers}</div>
+              <div class="stat-label">${currentLang==='en'?'Active Professionals':'Aktive Profis'}</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">4.8★</div>
+              <div class="stat-label">${currentLang==='en'?'Average Rating':'Durchschnittliche Bewertung'}</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">€18</div>
+              <div class="stat-label">${currentLang==='en'?'Avg. Hourly Rate':'Durchschn. Stundensatz'}</div>
+            </div>
+          </div>
+          <div style="margin-top:40px;padding:24px;background:var(--brand-soft);border-radius:var(--radius-lg);border:1px solid var(--border)">
+            <h3 style="color:var(--ink);margin-bottom:12px;font-family:Syne,sans-serif">${currentLang==='en'?'Services Available':'Verfügbare Dienstleistungen'}</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px">
+              <div style="padding:12px;background:var(--card);border-radius:var(--radius);text-align:center;font-size:13px">🧹 ${currentLang==='en'?'Cleaning':'Reinigung'}</div>
+              <div style="padding:12px;background:var(--card);border-radius:var(--radius);text-align:center;font-size:13px">📦 ${currentLang==='en'?'Moving':'Umzug'}</div>
+              <div style="padding:12px;background:var(--card);border-radius:var(--radius);text-align:center;font-size:13px">🔨 ${currentLang==='en'?'Repairs':'Reparaturen'}</div>
+              <div style="padding:12px;background:var(--card);border-radius:var(--radius);text-align:center;font-size:13px">🌳 ${currentLang==='en'?'Garden':'Garten'}</div>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:32px">
+            <button class="btn-primary" onclick="startOnboard('customer')">${currentLang==='en'?'Find a Pro in '+district.name:'Finden Sie einen Profi in '+district.name}</button>
+          </div>
+        </div>
+      </div>
+    `;
+    container.innerHTML+=html;
   });
 }
 
@@ -613,7 +752,10 @@ function validateStep3(){
 
 function goToDash(){
   const role=currentRole;
-  alert('✅ Account created! Welcome to CIOU Munich.\n\n' + (role==='customer' ? 'Post a job now and find the best professional!' : 'Your first 5 jobs are at 15% fee. Start earning!'));
+  const msg=currentLang==='en'?
+    ('✅ Account created! Welcome to CIOU Munich.\n\n' + (role==='customer' ? 'Post a job now and find the best professional!' : 'Your first 5 jobs are at 15% fee. Start earning!')):
+    ('✅ Konto erstellt! Willkommen bei CIOU München.\n\n' + (role==='customer' ? 'Posten Sie jetzt einen Auftrag und finden Sie den besten Profi!' : 'Ihre ersten 5 Jobs kosten 15%. Beginnen Sie zu verdienen!'));
+  alert(msg);
   showPage('home');
 }
 
@@ -643,7 +785,18 @@ function startOnboard(role){
   showPage('onboard');
 }
 
-obGo(1);
+// Initialize
+window.addEventListener('load',()=>{
+  const savedTheme=localStorage.getItem('theme');
+  if(savedTheme==='dark')document.body.classList.add('dark-mode');
+  const savedLang=localStorage.getItem('lang')||'en';
+  setLang(savedLang);
+  document.getElementById('btn-en').classList.toggle('active',savedLang==='en');
+  document.getElementById('btn-de').classList.toggle('active',savedLang==='de');
+  document.querySelector('.theme-toggle').textContent=document.body.classList.contains('dark-mode')?'☀️':'🌙';
+  createDistrictPages();
+  obGo(1);
+});
 </script>
 </body>
 </html>
